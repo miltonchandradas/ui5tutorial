@@ -55,7 +55,26 @@ sap.ui.define(
       /***********************************************************************************************/
 
       onSubmit: function () {
-        this._mainModel.submitChanges();
+        let products = this._northwindModel.getData();
+        products.Products.forEach(async (product) => {
+          if (product.dirty) {
+            await odataUtils.updateBackend(
+              `/Products(${product.ProductID})`,
+              { Discontinued: product.Discontinued },
+              this._viewModel,
+              this._mainModel
+            );
+          }
+        });
+      },
+
+      onDiscontinuedSelected: function (oEvent) {
+        let bindingContext = oEvent
+          .getSource()
+          .getBindingContext("northwindModel");
+        let sPath = bindingContext.sPath;
+
+        this._northwindModel.setProperty(sPath + "/dirty", true);
       },
     });
   }

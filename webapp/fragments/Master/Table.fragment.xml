@@ -58,7 +58,7 @@
 					<Text text="{northwindModel>UnitPrice}"></Text>			
 					<Text text="{northwindModel>UnitsInStock}"></Text>
                     <Text text="{northwindModel>UnitsOnOrder}"></Text>
-					<CheckBox selected="{northwindModel>Discontinued}"></CheckBox>
+					<CheckBox selected="{northwindModel>Discontinued}" select=".onDiscontinuedSelected"></CheckBox>
 				</ColumnListItem>
 			</items>
 		</Table>
