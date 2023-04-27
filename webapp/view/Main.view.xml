@@ -2,7 +2,7 @@
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m"
     xmlns:f="sap.f"
-     xmlns:core="sap.ui.core">
+    xmlns:core="sap.ui.core">
     <f:DynamicPage id="dynamicMasterPageId" headerExpanded="true" toggleHeaderOnTitleClick="true" busy="{viewModel>/busy}" class="sapUiSizeCompact">
         <!-- DynamicPage Title - Always visible -->
         <f:title>
@@ -25,8 +25,6 @@
             <core:Fragment fragmentName="com.sap.ui5tutorial/fragments/Master/Table" type="XML"/>
         </f:content>
         <!-- DynamicPage Footer - Optional -->
-        <f:footer>
-
-        </f:footer>
+        
     </f:DynamicPage>
 </mvc:View>
