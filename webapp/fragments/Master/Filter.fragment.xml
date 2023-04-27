@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:smartMultiInput="sap.ui.comp.smartmultiinput"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:smartVariantManagement="sap.ui.comp.smartvariants">
+    <smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="Products" showGoOnFB="true" useToolbar="false" showFilterConfiguration="false" search=".onSearch" filterChange=".onFilterBarChange">
+        <smartFilterBar:controlConfiguration>
+            <smartFilterBar:ControlConfiguration key="ProductID" label="Name" visibleInAdvancedArea="true" index="0" preventInitialDataFetchInValueHelpDialog="false">
+                <smartFilterBar:customControl>
+                    <ComboBox id="cbProducts" items="{/Products}" selectedKey="">
+                        <core:ListItem key="{ProductID}" text="{ProductName}"/>
+                    </ComboBox>
+                </smartFilterBar:customControl>
+            </smartFilterBar:ControlConfiguration>
+            <smartFilterBar:ControlConfiguration key="Discontinued" label="Discontinued" visibleInAdvancedArea="true" index="10" preventInitialDataFetchInValueHelpDialog="false">
+                <smartFilterBar:customControl>
+                    <ComboBox id="cbDiscontinued" selectedKey="">
+                        <core:ListItem key="false" text="false" />
+						<core:ListItem key="true" text="true"/>		
+                    </ComboBox>      
+                </smartFilterBar:customControl>
+            </smartFilterBar:ControlConfiguration>
+        </smartFilterBar:controlConfiguration>
+    </smartFilterBar:SmartFilterBar>
+</core:FragmentDefinition>
