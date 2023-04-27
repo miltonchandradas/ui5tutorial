@@ -2,12 +2,13 @@ sap.ui.define(
   [
     "sap/ui/core/mvc/Controller",
     "com/sap/ui5tutorial/utils/filterUtils",
+    "com/sap/ui5tutorial/utils/odataUtils",
     "sap/ui/model/json/JSONModel",
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller, filterUtils, JSONModel) {
+  function (Controller, filterUtils, odataUtils, JSONModel) {
     "use strict";
 
     return Controller.extend("com.sap.ui5tutorial.controller.Main", {
@@ -23,6 +24,8 @@ sap.ui.define(
         this._viewModel = this.getView().getModel("viewModel");
 
         this._mainModel = this.getOwnerComponent().getModel();
+        this._northwindModel =
+          this.getOwnerComponent().getModel("northwindModel");
         this._filterArray = filterUtils.getFilterArray(this);
       },
 
@@ -34,19 +37,25 @@ sap.ui.define(
         this._filterArray = filterUtils.getFilterArray(this);
       },
 
-      onBeforeRebindTable: function (oEvent) {
+      onBeforeRebindTable: async function (oEvent) {
         let bindingParams = oEvent.getParameter("bindingParams");
         bindingParams.filters = filterUtils.getFilterArray(this);
 
-        this._mainModel.refresh();
+        let data = await odataUtils.read(
+          "Products",
+          bindingParams.filters,
+          this._viewModel,
+          this._mainModel
+        );
+        this._northwindModel.setData({ Products: data?.results });
       },
 
       /***********************************************************************************************/
-      /*		FOOTER EVENT HANDLERS
+      /*		TABLE EVENT HANDLERS
       /***********************************************************************************************/
 
       onSubmit: function () {
-          this._mainModel.submitChanges();
+        this._mainModel.submitChanges();
       },
     });
   }

@@ -3,7 +3,7 @@
 	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:tnt="sap.tnt">
 	<smartTable:SmartTable id="masterSmartTable" tableType="ResponsiveTable" entitySet="Products"
 		requestAtLeastFields="ProductID,ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,UnitsInStock,UnitsOnOrder,ReorderLevel,Discontinued"
-		placeToolbarInTable="true" header="Products" beforeRebindTable=".onBeforeRebindTable"  smartFilterId="smartFilterBar"
+		placeToolbarInTable="true" header="Products" beforeRebindTable=".onBeforeRebindTable" tableBindingPath="northwindModel>/Products"  smartFilterId="smartFilterBar"
 		customData:p13nDialogSettings='{filter:{visible:false}}' enableAutoBinding="true">
 		<smartTable:customToolbar>
 			<OverflowToolbar>
@@ -53,12 +53,12 @@
 			</columns>
 			<items>
 				<ColumnListItem type="Navigation">
-					<ObjectIdentifier title="{ProductID}" text="{ProductName}"/>
+					<ObjectIdentifier title="{northwindModel>ProductID}" text="{northwindModel>ProductName}"/>
 				
-					<Text text="{UnitPrice}"></Text>			
-					<Text text="{UnitsInStock}"></Text>
-                    <Text text="{UnitsOnOrder}"></Text>
-					<CheckBox selected="{Discontinued}"></CheckBox>
+					<Text text="{northwindModel>UnitPrice}"></Text>			
+					<Text text="{northwindModel>UnitsInStock}"></Text>
+                    <Text text="{northwindModel>UnitsOnOrder}"></Text>
+					<CheckBox selected="{northwindModel>Discontinued}"></CheckBox>
 				</ColumnListItem>
 			</items>
 		</Table>
