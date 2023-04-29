@@ -53,5 +53,22 @@ sap.ui.define([], function () {
         });
       });
     },
+
+    deleteFromBackend: function (sPath, viewModel, dataModel) {
+      viewModel.setProperty("/busy", true);
+
+      return new Promise(function (resolve, reject) {
+        dataModel.remove(sPath, {
+          success: function (data) {
+            viewModel.setProperty("/busy", false);
+            resolve(data);
+          },
+          error: function (err) {
+            viewModel.setProperty("/busy", false);
+            reject(err);
+          },
+        });
+      });
+    },
   };
 });

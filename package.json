@@ -16,7 +16,7 @@
     "@sap-ux/ui5-middleware-fe-mockserver": "2"
   },
   "scripts": {
-    "start": "fiori run --open \"test/flpSandbox.html?sap-ui-xx-viewCache=false#comsapui5tutorial-display\"",
+    "start": "fiori run --open \"test/flpSandbox.html?sap-ui-xx-viewCache=false#Shell-home\"",
     "start-local": "fiori run --config ./ui5-local.yaml --open \"test/flpSandbox.html?sap-ui-xx-viewCache=false#comsapui5tutorial-display\"",
     "build": "ui5 build --config=ui5.yaml --clean-dest --dest dist",
     "deploy": "fiori verify",

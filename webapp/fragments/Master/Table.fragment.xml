@@ -11,6 +11,7 @@
 		<smartTable:customToolbar>
 			<OverflowToolbar>
 				<ToolbarSpacer/>
+				<Button icon="sap-icon://delete" text="Delete" visible="{= ${viewModel>/action} === 'delete'}" press=".onDelete"/>
 				<Button icon="sap-icon://update" text="Update" press=".onSubmit"/>
 				<ComboBox id="cbFilterProducts" selectedKey="" change=".onFilterProducts">
 					<core:ListItem key="1" text="Product IDs - Less than or equal to 10" />

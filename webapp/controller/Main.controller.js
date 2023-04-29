@@ -36,6 +36,16 @@ sap.ui.define(
         this.getView().setModel(viewModel, "viewModel");
         this._viewModel = this.getView().getModel("viewModel");
 
+        if (
+          sap.ushell.services.AppConfiguration.getCurrentApplication().sFixedShellHash.includes(
+            "delete"
+          )
+        ) {
+          this._viewModel.setProperty("/action", "delete");
+        } else {
+          this._viewModel.setProperty("/action", "display");
+        }
+
         this._mainModel = this.getOwnerComponent().getModel();
         this._northwindModel =
           this.getOwnerComponent().getModel("northwindModel");
@@ -88,6 +98,20 @@ sap.ui.define(
             );
           }
         });
+      },
+
+      onDelete: async function () {
+        let row = this.byId("masterTable").getSelectedItem();
+        if (row) {
+          let product = this._northwindModel.getProperty(
+            row.getBindingContextPath()
+          );
+          await odataUtils.deleteFromBackend(
+            `/Products(${product.ProductID})`,
+            this._viewModel,
+            this._mainModel
+          );
+        }
       },
 
       onFilterProducts: function (oEvent) {
