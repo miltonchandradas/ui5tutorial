@@ -59,9 +59,8 @@
 				</Column>
 			</columns>
 			<items>
-				<ColumnListItem type="Navigation">
-					<ObjectIdentifier title="{northwindModel>ProductID}" text="{northwindModel>ProductName}"/>
-				
+				<ColumnListItem type="Navigation" highlight="{path: 'northwindModel>IgnoreSubmit', formatter:'.formatter.isRowIgnored'}">
+					<ObjectIdentifier title="{northwindModel>ProductID}" text="{northwindModel>ProductName}"/>	
 					<Text text="{northwindModel>UnitPrice}"></Text>			
 					<Text text="{northwindModel>UnitsInStock}"></Text>
                     <Text text="{northwindModel>UnitsOnOrder}"></Text>

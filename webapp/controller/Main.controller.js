@@ -3,9 +3,8 @@ sap.ui.define(
     "sap/ui/core/mvc/Controller",
     "com/sap/ui5tutorial/utils/filterUtils",
     "com/sap/ui5tutorial/utils/odataUtils",
-    "sap/ui/model/json/JSONModel",
-    "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator",
+    "com/sap/ui5tutorial/model/formatter",
+    "sap/ui/model/json/JSONModel"
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
@@ -14,13 +13,15 @@ sap.ui.define(
     Controller,
     filterUtils,
     odataUtils,
+    formatter,
     JSONModel,
-    Filter,
-    FilterOperator
   ) {
     "use strict";
 
     return Controller.extend("com.sap.ui5tutorial.controller.Main", {
+
+      formatter: formatter,
+
       onInit: function () {
         // Setting the view model for busy indicators
         let viewModel = new JSONModel({
