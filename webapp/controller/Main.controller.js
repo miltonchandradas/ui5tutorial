@@ -59,7 +59,8 @@ sap.ui.define(
 
         data?.results.forEach((result) => {
           result.isDisplayed = true;
-          if (result.ProductID % 3 === 1) result.isMaster = "X"; 
+          if (result.ProductID % 3 === 1) result.isMaster = "X";
+          else result.masterID = result.ProductID - (result.ProductID % 3);
         });
         this._northwindModel.setData({ Products: data?.results });
       },
@@ -111,18 +112,34 @@ sap.ui.define(
 
         let data = this._northwindModel.getData();
         data.Products.forEach((product) => {
-          if (displayedIds.includes(product.ProductID)) product.isDisplayed = true;
+          if (displayedIds.includes(product.ProductID))
+            product.isDisplayed = true;
           else product.isDisplayed = false;
         });
       },
 
       onDiscontinuedSelected: function (oEvent) {
-        let bindingContext = oEvent
-          .getSource()
-          .getBindingContext("northwindModel");
+        let src = oEvent.getSource();
+        let bindingContext = src.getBindingContext("northwindModel");
         let sPath = bindingContext.sPath;
+        let selected = src.getSelected();
 
-        this._northwindModel.setProperty(sPath + "/dirty", true);
+        let product = this._northwindModel.getProperty(sPath);
+        if (!product.isMaster === "X") {
+          this._northwindModel.setProperty(sPath + "/dirty", true);
+          return;
+        } else {
+          let items = this._northwindModel.getData();
+          items.Products.forEach((item) => {
+            if (
+              item.masterID === product.ProductID ||
+              item.ProductID === product.ProductID
+            ) {
+              item.isDirty = true;
+              item.Discontinued = selected;
+            }
+          });
+        }
       },
 
       onIgnoreSubmitSelected: function (oEvent) {
