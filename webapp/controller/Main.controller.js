@@ -104,10 +104,6 @@ sap.ui.define(
               item.getBindingContextPath() + "/ProductID"
             )
           );
-          // this._viewModel.setProperty(
-          //   item.getBindingContextPath + "/isDisplayed",
-          //   true
-          // );
         });
 
         let data = this._northwindModel.getData();
