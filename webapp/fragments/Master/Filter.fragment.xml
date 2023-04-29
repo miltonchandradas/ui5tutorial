@@ -6,14 +6,14 @@
     xmlns:smartVariantManagement="sap.ui.comp.smartvariants">
     <smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="Products" showGoOnFB="true" useToolbar="false" showFilterConfiguration="false" search=".onSearch" filterChange=".onFilterBarChange">
         <smartFilterBar:controlConfiguration>
-            <smartFilterBar:ControlConfiguration key="ProductID" label="Name" visibleInAdvancedArea="true" index="0" preventInitialDataFetchInValueHelpDialog="false">
+            <smartFilterBar:ControlConfiguration key="ProductID" label="Name" visibleInAdvancedArea="true" index="0">
                 <smartFilterBar:customControl>
                     <ComboBox id="cbProducts" items="{/Products}" selectedKey="">
                         <core:ListItem key="{ProductID}" text="{ProductName}"/>
                     </ComboBox>
                 </smartFilterBar:customControl>
             </smartFilterBar:ControlConfiguration>
-            <smartFilterBar:ControlConfiguration key="Discontinued" label="Discontinued" visibleInAdvancedArea="true" index="10" preventInitialDataFetchInValueHelpDialog="false">
+            <smartFilterBar:ControlConfiguration key="Discontinued" label="Discontinued" visibleInAdvancedArea="true" index="10">
                 <smartFilterBar:customControl>
                     <ComboBox id="cbDiscontinued" selectedKey="">
                         <core:ListItem key="false" text="false" />

@@ -4,11 +4,20 @@ sap.ui.define(
     "com/sap/ui5tutorial/utils/filterUtils",
     "com/sap/ui5tutorial/utils/odataUtils",
     "sap/ui/model/json/JSONModel",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller, filterUtils, odataUtils, JSONModel) {
+  function (
+    Controller,
+    filterUtils,
+    odataUtils,
+    JSONModel,
+    Filter,
+    FilterOperator
+  ) {
     "use strict";
 
     return Controller.extend("com.sap.ui5tutorial.controller.Main", {
@@ -38,6 +47,8 @@ sap.ui.define(
       },
 
       onBeforeRebindTable: async function (oEvent) {
+        console.log("onBeforeRebind is fired...");
+
         let bindingParams = oEvent.getParameter("bindingParams");
         bindingParams.filters = filterUtils.getFilterArray(this);
 
@@ -48,6 +59,10 @@ sap.ui.define(
           this._mainModel
         );
         this._northwindModel.setData({ Products: data?.results });
+      },
+
+      onSearch: function () {
+        console.log("onSearch is fired...");
       },
 
       /***********************************************************************************************/
@@ -66,6 +81,23 @@ sap.ui.define(
             );
           }
         });
+      },
+
+      onFilterProducts: function (oEvent) {
+        let src = oEvent.getSource();
+        let selectedKey = src.getSelectedKey();
+
+        let filters = [];
+        let masterTable = this.byId("masterTable");
+        let binding = masterTable.getBinding("items");
+
+        if (selectedKey === "1") {
+          filters.push(new Filter("ProductID", FilterOperator.LE, 10));
+        } else if (selectedKey === "2") {
+          filters.push(new Filter("ProductID", FilterOperator.GT, 10));
+        }
+
+        binding.filter(filters);
       },
 
       onDiscontinuedSelected: function (oEvent) {
