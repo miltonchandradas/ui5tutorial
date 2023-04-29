@@ -58,7 +58,7 @@
 				</Column>
 			</columns>
 			<items>
-				<ColumnListItem type="Navigation">
+				<ColumnListItem type="Navigation" highlight="{path: 'northwindModel>IgnoreSubmit', formatter:'.formatter.isRowIgnored'}">
 					<customData>
 						<core:CustomData key="mydata" value="{northwindModel>isMaster}" writeToDom="true"></core:CustomData>
 					</customData>

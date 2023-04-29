@@ -3,6 +3,7 @@ sap.ui.define(
     "sap/ui/core/mvc/Controller",
     "com/sap/ui5tutorial/utils/filterUtils",
     "com/sap/ui5tutorial/utils/odataUtils",
+    "com/sap/ui5tutorial/model/formatter",
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
@@ -14,6 +15,7 @@ sap.ui.define(
     Controller,
     filterUtils,
     odataUtils,
+    formatter,
     JSONModel,
     Filter,
     FilterOperator
@@ -21,6 +23,8 @@ sap.ui.define(
     "use strict";
 
     return Controller.extend("com.sap.ui5tutorial.controller.Main", {
+      formatter: formatter,
+
       onInit: function () {
         // Setting the view model for busy indicators
         let viewModel = new JSONModel({
@@ -63,8 +67,7 @@ sap.ui.define(
           if (result.ProductID % 3 === 1) {
             result.isMaster = "X";
             masterID = result.ProductID;
-          }
-          else result.masterID = masterID;
+          } else result.masterID = masterID;
         });
         this._northwindModel.setData({ Products: data?.results });
       },
