@@ -4,7 +4,7 @@
     xmlns:smartMultiInput="sap.ui.comp.smartmultiinput"
     xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
     xmlns:smartVariantManagement="sap.ui.comp.smartvariants">
-    <smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="Products" showGoOnFB="true" useToolbar="false" showFilterConfiguration="false" search=".onSearch" filterChange=".onFilterBarChange">
+    <smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="Products" showGoOnFB="true" useToolbar="false" showFilterConfiguration="false" filterChange=".onFilterBarChange">
         <smartFilterBar:controlConfiguration>
             <smartFilterBar:ControlConfiguration key="ProductID" label="Name" visibleInAdvancedArea="true" index="0">
                 <smartFilterBar:customControl>

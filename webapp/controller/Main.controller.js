@@ -47,7 +47,6 @@ sap.ui.define(
       },
 
       onBeforeRebindTable: async function (oEvent) {
-        console.log("onBeforeRebind is fired...");
 
         let bindingParams = oEvent.getParameter("bindingParams");
         bindingParams.filters = filterUtils.getFilterArray(this);
@@ -61,10 +60,6 @@ sap.ui.define(
         this._northwindModel.setData({ Products: data?.results });
       },
 
-      onSearch: function () {
-        console.log("onSearch is fired...");
-      },
-
       /***********************************************************************************************/
       /*		TABLE EVENT HANDLERS
       /***********************************************************************************************/
@@ -72,7 +67,7 @@ sap.ui.define(
       onSubmit: function () {
         let products = this._northwindModel.getData();
         products.Products.forEach(async (product) => {
-          if (product.dirty) {
+          if (product.dirty && !product.ignore) {
             await odataUtils.updateBackend(
               `/Products(${product.ProductID})`,
               { Discontinued: product.Discontinued },
@@ -83,23 +78,6 @@ sap.ui.define(
         });
       },
 
-      onFilterProducts: function (oEvent) {
-        let src = oEvent.getSource();
-        let selectedKey = src.getSelectedKey();
-
-        let filters = [];
-        let masterTable = this.byId("masterTable");
-        let binding = masterTable.getBinding("items");
-
-        if (selectedKey === "1") {
-          filters.push(new Filter("ProductID", FilterOperator.LE, 10));
-        } else if (selectedKey === "2") {
-          filters.push(new Filter("ProductID", FilterOperator.GT, 10));
-        }
-
-        binding.filter(filters);
-      },
-
       onDiscontinuedSelected: function (oEvent) {
         let bindingContext = oEvent
           .getSource()
@@ -108,6 +86,17 @@ sap.ui.define(
 
         this._northwindModel.setProperty(sPath + "/dirty", true);
       },
+
+      onIgnoreSubmitSelected: function (oEvent) {
+        let src = oEvent.getSource();
+
+        let bindingContext = oEvent
+          .getSource()
+          .getBindingContext("northwindModel");
+        let sPath = bindingContext.sPath;
+
+        this._northwindModel.setProperty(sPath + "/ignore", src.getSelected());
+      }
     });
   }
 );
