@@ -1,59 +1,58 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:f="sap.f" xmlns:mvc="sap.ui.core.mvc" xmlns:layout="sap.ui.layout" xmlns:core="sap.ui.core"
-	xmlns:smartTable="sap.ui.comp.smarttable" xmlns:smartVariantManagement="sap.ui.comp.smartvariants"
-	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:tnt="sap.tnt">
-	<smartTable:SmartTable id="masterSmartTable" tableType="ResponsiveTable" entitySet="Products"
-		requestAtLeastFields="ProductID,ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,UnitsInStock,UnitsOnOrder,ReorderLevel,Discontinued"
-		placeToolbarInTable="true" header="Products" beforeRebindTable=".onBeforeRebindTable" tableBindingPath="northwindModel>/Products"  smartFilterId="smartFilterBar"
-		customData:p13nDialogSettings='{filter:{visible:false}}' enableAutoBinding="true">
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:layout="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+	xmlns:smartTable="sap.ui.comp.smarttable"
+	xmlns:smartVariantManagement="sap.ui.comp.smartvariants"
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:tnt="sap.tnt">
+	<smartTable:SmartTable id="masterSmartTable" tableType="ResponsiveTable" entitySet="Products" requestAtLeastFields="ProductID,ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,UnitsInStock,UnitsOnOrder,ReorderLevel,Discontinued" placeToolbarInTable="true" header="Products" beforeRebindTable=".onBeforeRebindTable" tableBindingPath="northwindModel>/Products" smartFilterId="smartFilterBar" customData:p13nDialogSettings='{filter:{visible:false}}' enableAutoBinding="true">
 		<smartTable:customToolbar>
 			<OverflowToolbar>
 				<ToolbarSpacer/>
 				<Button icon="sap-icon://update" text="Update" press=".onSubmit"/>
+				<ComboBox id="cbFilterProducts" selectedKey="" change=".onFilterProducts">
+					<core:ListItem key="1" text="Product IDs - Less than or equal to 10" />
+					<core:ListItem key="2" text="Odd Product IDs - Greater than 10"/>
+				</ComboBox>
 			</OverflowToolbar>
 		</smartTable:customToolbar>
-		<Table id="masterTable" sticky="ColumnHeaders,HeaderToolbar"
-			alternateRowColors="true" growing="true"
-			growingScrollToLoad="true" mode="SingleSelectLeft" selectionChange=".onSelectionChange">
+		<Table id="masterTable" sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true" growing="true" growingScrollToLoad="true" mode="SingleSelectLeft" selectionChange=".onSelectionChange">
 			<columns>
 				<Column minScreenWidth="Small">
 					<customData>
-						<core:CustomData key="p13nData"
-							value='\{"columnKey": "ProductName", "leadingProperty": "ProductName", "sortProperty": "ProductName", "filterProperty": "ProductName", "columnIndex": 0}'/>
+						<core:CustomData key="p13nData" value='\{"columnKey": "ProductName", "leadingProperty": "ProductName", "sortProperty": "ProductName", "filterProperty": "ProductName", "columnIndex": 0}'/>
 					</customData>
 					<Text text="Product"></Text>
 				</Column>
 				<Column minScreenWidth="Small">
 					<customData>
-						<core:CustomData key="p13nData"
-							value='\{"columnKey": "UnitPrice", "leadingProperty": "UnitPrice", "sortProperty": "UnitPrice", "filterProperty": "UnitPrice", "columnIndex": 10}'/>
+						<core:CustomData key="p13nData" value='\{"columnKey": "UnitPrice", "leadingProperty": "UnitPrice", "sortProperty": "UnitPrice", "filterProperty": "UnitPrice", "columnIndex": 10}'/>
 					</customData>
 					<Text text="Unit Price"></Text>
 				</Column>
 				<Column minScreenWidth="Small">
 					<customData>
-						<core:CustomData key="p13nData"
-							value='\{"columnKey": "UnitsInStock", "leadingProperty": "UnitsInStock", "sortProperty": "UnitsInStock", "filterProperty": "UnitsInStock", "columnIndex": 20}'/>
+						<core:CustomData key="p13nData" value='\{"columnKey": "UnitsInStock", "leadingProperty": "UnitsInStock", "sortProperty": "UnitsInStock", "filterProperty": "UnitsInStock", "columnIndex": 20}'/>
 					</customData>
 					<Text text="Units In Stock"></Text>
 				</Column>
 				<Column minScreenWidth="Small">
 					<customData>
-						<core:CustomData key="p13nData"
-							value='\{"columnKey": "UnitsOnOrder", "leadingProperty": "UnitsOnOrder", "sortProperty": "UnitsOnOrder", "filterProperty": "UnitsOnOrder", "columnIndex": 30}'/>
+						<core:CustomData key="p13nData" value='\{"columnKey": "UnitsOnOrder", "leadingProperty": "UnitsOnOrder", "sortProperty": "UnitsOnOrder", "filterProperty": "UnitsOnOrder", "columnIndex": 30}'/>
 					</customData>
 					<Text text="Units On Order"></Text>
 				</Column>
 				<Column minScreenWidth="Small">
 					<customData>
-						<core:CustomData key="p13nData"
-							value='\{"columnKey": "Discontinued", "leadingProperty": "Discontinued", "sortProperty": "Discontinued", "filterProperty": "Discontinued", "columnIndex": 40}'/>
+						<core:CustomData key="p13nData" value='\{"columnKey": "Discontinued", "leadingProperty": "Discontinued", "sortProperty": "Discontinued", "filterProperty": "Discontinued", "columnIndex": 40}'/>
 					</customData>
 					<Text text="Discontinued"></Text>
 				</Column>
 				<Column minScreenWidth="Small">
 					<customData>
-						<core:CustomData key="p13nData"
-							value='\{"columnKey": "IgnoreSubmit", "leadingProperty": "IgnoreSubmit", "columnIndex": 50}'/>
+						<core:CustomData key="p13nData" value='\{"columnKey": "IgnoreSubmit", "leadingProperty": "IgnoreSubmit", "columnIndex": 50}'/>
 					</customData>
 					<Text text="Ignore Submit"></Text>
 				</Column>
@@ -61,10 +60,10 @@
 			<items>
 				<ColumnListItem type="Navigation">
 					<ObjectIdentifier title="{northwindModel>ProductID}" text="{northwindModel>ProductName}"/>
-				
-					<Text text="{northwindModel>UnitPrice}"></Text>			
+
+					<Text text="{northwindModel>UnitPrice}"></Text>
 					<Text text="{northwindModel>UnitsInStock}"></Text>
-                    <Text text="{northwindModel>UnitsOnOrder}"></Text>
+					<Text text="{northwindModel>UnitsOnOrder}"></Text>
 					<CheckBox selected="{northwindModel>Discontinued}" select=".onDiscontinuedSelected"></CheckBox>
 					<CheckBox selected="{northwindModel>IgnoreSubmit}" select=".onIgnoreSubmitSelected"></CheckBox>
 				</ColumnListItem>

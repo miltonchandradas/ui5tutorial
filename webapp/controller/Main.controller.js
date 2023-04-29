@@ -47,7 +47,6 @@ sap.ui.define(
       },
 
       onBeforeRebindTable: async function (oEvent) {
-
         let bindingParams = oEvent.getParameter("bindingParams");
         bindingParams.filters = filterUtils.getFilterArray(this);
 
@@ -57,6 +56,8 @@ sap.ui.define(
           this._viewModel,
           this._mainModel
         );
+
+        data?.results.forEach((result) => (result.isDisplayed = true));
         this._northwindModel.setData({ Products: data?.results });
       },
 
@@ -67,7 +68,7 @@ sap.ui.define(
       onSubmit: function () {
         let products = this._northwindModel.getData();
         products.Products.forEach(async (product) => {
-          if (product.dirty && !product.ignore) {
+          if (product.dirty && !product.ignore && product.isDisplayed) {
             await odataUtils.updateBackend(
               `/Products(${product.ProductID})`,
               { Discontinued: product.Discontinued },
@@ -75,6 +76,44 @@ sap.ui.define(
               this._mainModel
             );
           }
+        });
+      },
+
+      onFilterProducts: function (oEvent) {
+        let src = oEvent.getSource();
+        let selectedKey = src.getSelectedKey();
+
+        let filters = [];
+        let masterTable = this.byId("masterTable");
+        let binding = masterTable.getBinding("items");
+
+        if (selectedKey === "1") {
+          filters.push(new Filter("ProductID", FilterOperator.LE, 10));
+        } else if (selectedKey === "2") {
+          filters.push(new Filter("ProductID", FilterOperator.GT, 10));
+        }
+
+        binding.filter(filters);
+
+        let items = masterTable.getItems();
+        let displayedIds = [];
+
+        items.forEach((item) => {
+          displayedIds.push(
+            this._northwindModel.getProperty(
+              item.getBindingContextPath() + "/ProductID"
+            )
+          );
+          // this._viewModel.setProperty(
+          //   item.getBindingContextPath + "/isDisplayed",
+          //   true
+          // );
+        });
+
+        let data = this._northwindModel.getData();
+        data.Products.forEach((product) => {
+          if (displayedIds.includes(product.ProductID)) product.isDisplayed = true;
+          else product.isDisplayed = false;
         });
       },
 
@@ -96,7 +135,7 @@ sap.ui.define(
         let sPath = bindingContext.sPath;
 
         this._northwindModel.setProperty(sPath + "/ignore", src.getSelected());
-      }
+      },
     });
   }
 );
