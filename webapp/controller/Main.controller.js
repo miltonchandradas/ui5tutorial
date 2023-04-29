@@ -57,10 +57,14 @@ sap.ui.define(
           this._mainModel
         );
 
+        let masterID = 1;
         data?.results.forEach((result) => {
           result.isDisplayed = true;
-          if (result.ProductID % 3 === 1) result.isMaster = "X";
-          else result.masterID = result.ProductID - (result.ProductID % 3);
+          if (result.ProductID % 3 === 1) {
+            result.isMaster = "X";
+            masterID = result.ProductID;
+          }
+          else result.masterID = masterID;
         });
         this._northwindModel.setData({ Products: data?.results });
       },
