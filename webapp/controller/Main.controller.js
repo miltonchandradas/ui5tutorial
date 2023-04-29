@@ -57,7 +57,10 @@ sap.ui.define(
           this._mainModel
         );
 
-        data?.results.forEach((result) => (result.isDisplayed = true));
+        data?.results.forEach((result) => {
+          result.isDisplayed = true;
+          if (result.ProductID % 3 === 1) result.isMaster = "X"; 
+        });
         this._northwindModel.setData({ Products: data?.results });
       },
 
