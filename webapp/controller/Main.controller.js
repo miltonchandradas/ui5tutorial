@@ -142,7 +142,7 @@ sap.ui.define(
               item.masterID === product.ProductID ||
               item.ProductID === product.ProductID
             ) {
-              item.isDirty = true;
+              item.dirty = true;
               item.Discontinued = selected;
             }
           });
