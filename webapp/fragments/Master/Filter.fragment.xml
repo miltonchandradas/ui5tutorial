@@ -8,8 +8,8 @@
         <smartFilterBar:controlConfiguration>
             <smartFilterBar:ControlConfiguration key="ProductID" label="Name" visibleInAdvancedArea="true" index="0" preventInitialDataFetchInValueHelpDialog="false">
                 <smartFilterBar:customControl>
-                    <ComboBox id="cbProducts" items="{/Products}" selectedKey="">
-                        <core:ListItem key="{ProductID}" text="{ProductName}"/>
+                    <ComboBox id="cbProducts" items="{northwindModel>/Products}" selectedKey="">
+                        <core:ListItem key="{northwindModel>ProductID}" text="{northwindModel>ProductName}"/>
                     </ComboBox>
                 </smartFilterBar:customControl>
             </smartFilterBar:ControlConfiguration>
