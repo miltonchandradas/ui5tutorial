@@ -14,7 +14,7 @@
 				<Button icon="sap-icon://update" text="Update" press=".onSubmit"/>
 				<ComboBox id="cbFilterProducts" selectedKey="" change=".onFilterProducts">
 					<core:ListItem key="1" text="Product IDs - Less than or equal to 10" />
-					<core:ListItem key="2" text="Odd Product IDs - Greater than 10"/>
+					<core:ListItem key="2" text="Product IDs - Greater than 10"/>
 				</ComboBox>
 			</OverflowToolbar>
 		</smartTable:customToolbar>
